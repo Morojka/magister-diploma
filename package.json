@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Morojka/magister-diploma/issues"
   },
-  "homepage": "https://github.com/Morojka/magister-diploma#readme"
+  "homepage": "https://github.com/Morojka/magister-diploma#readme",
+  "dependencies": {
+    "@tensorflow/tfjs": "^1.7.4"
+  }
 }
