@@ -21,6 +21,8 @@
         "typeorm": "^0.2.25"
     },
     "scripts": {
-        "start": "ts-node src/index.ts"
+        "start": "node build/index.js",
+        "build": "ts-node src/index.ts",
+        "postinstall": "npm run build"
     }
 }

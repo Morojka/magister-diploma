@@ -3,8 +3,8 @@ import "reflect-metadata";
 var express = require('express');
 var app = express();
 
-const VkBot = require('node-vk-bot-api')
-const bot = new VkBot(process.env.TOKEN)
+// const VkBot = require('node-vk-bot-api')
+// const bot = new VkBot(process.env.TOKEN)
 
 import {createConnection} from "typeorm";
 import {User} from "./entity/User";
