@@ -1,23 +1,21 @@
 {
-  "name": "diploma",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Morojka/magister-diploma.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Morojka/magister-diploma/issues"
-  },
-  "homepage": "https://github.com/Morojka/magister-diploma#readme",
-  "dependencies": {
-    "@tensorflow/tfjs": "^1.7.4"
-  }
+   "name": "diploma",
+   "version": "0.0.1",
+   "description": "Awesome project developed with TypeORM.",
+   "devDependencies": {
+      "ts-node": "3.3.0",
+      "@types/node": "^14.0.10",
+      "typescript": "3.3.3333"
+   },
+   "dependencies": {
+      "@tensorflow/tfjs": "^1.7.4",
+      "@types/node": "^14.0.10",
+      "mysql": "^2.18.1",
+      "node-vk-bot-api": "^3.3.4",
+      "reflect-metadata": "^0.1.13",
+      "typeorm": "^0.2.25"
+   },
+   "scripts": {
+      "start": "ts-node src/index.ts"
+   }
 }
