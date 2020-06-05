@@ -32,11 +32,11 @@ app.post('/confirmVK', function(req, res) {
 
 createConnection({
     type: "mysql",
-    host: process.env.DB_host,
-    port: parseInt(process.env.DB_port),
-    username: process.env.DB_username,
-    password: process.env.DB_password,
-    database: process.env.DB_database,
+    host: process.env.DB_HOST,
+    port: parseInt(process.env.DB_PORT),
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
     entities: [
         "src/entity/**/*.ts"
     ],
