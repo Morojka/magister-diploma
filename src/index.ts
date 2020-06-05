@@ -12,7 +12,7 @@ app.listen(process.env.PORT, function () {
 });
 
 const VkBot = require('node-vk-bot-api')
-const bot = new VkBot(process.env.TOKEN)
+const bot = new VkBot(process.env.VK_TOKEN)
 
 import {createConnection} from "typeorm";
 import {User} from "./entity/User";
