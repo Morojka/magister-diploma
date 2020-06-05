@@ -1,0 +1,5 @@
+{
+    "watch": ["src", "views"],
+    "ext": "*",
+    "exec": "heroku local"
+}

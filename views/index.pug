@@ -1,0 +1,16 @@
+extends layout.pug
+
+block content
+    div.container
+        div.row
+            div.col-auto.m-auto
+                h1 Введите номер зачетки и пароль
+                form(action='/login', method='post')
+                    div.row.my-3
+                        div.col-12
+                            | Зачетка:
+                            input.form-control.w-auto.mx-auto.my-2(name='record_number')
+                        div.col-12
+                            | Пароль:
+                            input.form-control.w-auto.mx-auto.my-2(name='password', type='password')
+                    button.btn.btn-success.mx-auto Войти
