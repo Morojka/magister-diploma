@@ -7,8 +7,12 @@ if (process.env.NODE_ENV !== 'production') {
 var express = require('express');
 var app = express();
 
-// const VkBot = require('node-vk-bot-api')
-// const bot = new VkBot(process.env.TOKEN)
+app.listen(process.env.PORT, function () {
+    console.log('Example app listening on port 5000!');
+});
+
+const VkBot = require('node-vk-bot-api')
+const bot = new VkBot(process.env.TOKEN)
 
 import {createConnection} from "typeorm";
 import {User} from "./entity/User";
@@ -19,10 +23,10 @@ app.get('/', function(req, res) {
     res.send('cacf322a');
 });
 
-app.get('/confirmVK', function(req, res) {
-    console.log(req);
-    console.log('confirmVK');
-    res.send('cacf322a');
+app.post('/confirmVK', function(req, res) {
+    if(req.query === { "type": "confirmation", "group_id": 166439257 }) {
+        res.send('cacf322a');
+    }
 });
 
 
