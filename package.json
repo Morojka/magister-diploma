@@ -1,7 +1,7 @@
 {
     "name": "diploma",
     "version": "0.0.1",
-    "main": "src/index.ts",
+    "main": "dist/index.js",
     "description": "Awesome project developed with TypeORM.",
     "engines": {
         "node": "14.x"
@@ -24,13 +24,10 @@
         "typeorm": "^0.2.25"
     },
     "scripts": {
-        "build": "ts-node src/index.ts",
         "build-ts": "tsc",
-        "lint": "tslint -c tslint.json 'src/**/*.ts'",
         "postinstall": "npm run build-ts",
         "start": "npm run serve",
         "serve": "node dist/index.js",
-        "test": "jest src",
         "watch-node": "nodemon dist/index.js",
         "watch-ts": "tsc -w"
     }
