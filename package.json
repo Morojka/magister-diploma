@@ -19,6 +19,8 @@
         "express": "^4.17.1",
         "mysql": "^2.18.1",
         "node-vk-bot-api": "^3.3.4",
+        "passport": "^0.4.1",
+        "passport-vkontakte": "^0.3.2",
         "pug": "^3.0.0",
         "reflect-metadata": "^0.1.13",
         "typeorm": "^0.2.25"
