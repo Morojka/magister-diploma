@@ -29,7 +29,6 @@ app.post('/confirmVK', function(req, res) {
     }
 });
 
-
 createConnection({
     type: "mysql",
     host: process.env.DB_HOST,
@@ -52,8 +51,11 @@ createConnection({
         "subscribersDir": "src/subscriber"
     }
 }).then(async connection => {
-
     console.log('DB Started');
+    console.log(process.env.DB_DATABASE);
+
+    const users = await connection.manager.find(User);
+    console.log("Loaded users: ", users);
 
     // console.log(process.env.TOKEN);
 
@@ -66,8 +68,7 @@ createConnection({
     // console.log("Saved a new user with id: " + user.id);
     //
     // console.log("Loading users from the database...");
-    // const users = await connection.manager.find(User);
-    // console.log("Loaded users: ", users);
+
     //
     // console.log("Here you can setup and run express/koa/any other framework.");
 
