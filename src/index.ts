@@ -5,9 +5,6 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-const VkBot = require('node-vk-bot-api')
-const bot = new VkBot(process.env.VK_TOKEN)
-
 import {createConnection} from "typeorm";
 import {User} from "./entity/User";
 
@@ -33,24 +30,16 @@ createConnection({
         "subscribersDir": "src/subscriber"
     }
 }).then(async connection => {
-    console.log('DB Started');
+    console.log('DB Started ' + process.env.DB_HOST);
 
     const users = await connection.manager.find(User);
     console.log("Loaded users: ", users);
 
-    // console.log(process.env.TOKEN);
+    const VkBot = require('node-vk-bot-api')
+    const bot = new VkBot(process.env.VK_TOKEN)
 
-    // console.log("Inserting a new user into the database...");
-    // const user = new User();
-    // user.name = "Timber";
-    // user.record_number = "Saw";
-    // user.vk_id = '25';
-    // await connection.manager.save(user);
-    // console.log("Saved a new user with id: " + user.id);
-    //
-    // console.log("Loading users from the database...");
-
-    //
-    // console.log("Here you can setup and run express/koa/any other framework.");
+    bot.command('/start', (ctx) => {
+        ctx.reply('Hello!')
+    })
 
 }).catch(error => console.log(error));
