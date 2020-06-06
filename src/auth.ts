@@ -1,3 +1,5 @@
+import "reflect-metadata";
+import {getRepository} from "typeorm";
 import {User} from "./entity/User";
 
 var passport = require('passport')
@@ -9,12 +11,12 @@ passport.use(new VKontakteStrategy({
         callbackURL: process.env.VK_APP_CALLBACK_URL,
         apiVersion: '5.68',
     },
-    // eslint-disable-next-line func-names
+
     async (_accessToken, _refreshToken, profile, done) => {
         console.log('profile');
         console.log(profile);
         try {
-            const user = await User.findOne({
+            const user = getRepository(User).findOne({
                 where: {
                     vk_id: profile.id,
                 },
@@ -32,8 +34,7 @@ passport.use(new VKontakteStrategy({
             return done(error);
         }
     }
-    )
-);
+));
 
 passport.serializeUser(function (user, done) {
     done(null, user);

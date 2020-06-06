@@ -7,13 +7,23 @@ var app = express();
 import passport from './auth';
 
 app.use(express.static('public'));
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.set('view engine', 'pug');
 
 // ______ROUTES________
 app.get('/', function (req, res) {
-    res.render('index', {title: 'Hey', message: 'Hello there!'});
+    if (req.isAuthenticated()) {
+        console.log(req.user);
+        res.render('profile', {user: req.user});
+    } else {
+        res.render('index');
+    }
 });
 app.post('/confirmVK', function (req, res) {
     res.send('b838b0af');
@@ -21,14 +31,11 @@ app.post('/confirmVK', function (req, res) {
 
 app.get('/auth/vkontakte',
     passport.authenticate('vkontakte'),
-    function (req, res) {
-        // The request will be redirected to Facebook for authentication, so this
-        // function will not be called.
-    }
+    function (req, res) {}
 );
 
 app.get('/auth/vkontakte/callback',
-    passport.authenticate('vkontakte', {failureRedirect: '/login'}),
+    passport.authenticate('vkontakte', {failureRedirect: '/'}),
     function (req, res) {
         res.redirect('/');
     }
