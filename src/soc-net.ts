@@ -22,7 +22,7 @@ createConnection().then(async connection => {
         async (ctx) => {
             const user = await connection.manager.findOne(User, {
                 where: {
-                    vk_id: ctx.message.from_id,
+                    vk_id: ctx.message.user_id,
                 },
             });
 
@@ -37,13 +37,11 @@ createConnection().then(async connection => {
             }
         },
         (ctx) => {
-            console.log(ctx);
             console.log(ctx.message);
-            console.log(/([0-9])\d{5}/.test(ctx.message.text));
-            if(/([0-9])\d{5}/.test(ctx.message.text)) {
+            if(/([0-9])\d{5}/.test(ctx.message.body)) {
                 let user = new User();
-                user.record_number = ctx.message.text;
-                user.vk_id = ctx.message.from_id;
+                user.record_number = ctx.message.body;
+                user.vk_id = ctx.message.user_id;
                 user.save();
 
                 ctx.reply('Вы успешно зарегистрированы! Кабинет тут: https://volsu-helper.herokuapp.com/');
@@ -68,7 +66,7 @@ createConnection().then(async connection => {
         } else {
             ctx.reply('Здравствуйте! Введите /start для начала работы');
         }
-        console.log(ctx.message.text);
+        console.log(ctx.message.body);
     });
 });
 
