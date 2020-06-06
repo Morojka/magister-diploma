@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
 });
 app.post('/confirmVK', function (req, res) {
     if (req.query === {"type": "confirmation", "group_id": 166439257}) {
-        res.send('2470154a');
+        res.send('923385b5');
     }
 });
 
