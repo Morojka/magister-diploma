@@ -15,8 +15,9 @@ passport.use(new VKontakteStrategy({
     async (_accessToken, _refreshToken, profile, done) => {
         console.log('profile');
         console.log(profile);
+        const userRep = getRepository(User);
         try {
-            const user = getRepository(User).findOne({
+            const user = userRep.findOne({
                 where: {
                     vk_id: profile.id,
                 },
