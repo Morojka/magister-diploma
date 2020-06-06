@@ -19,10 +19,6 @@ export class createUserTable1591376547202 implements MigrationInterface {
                     name: "vk_id",
                     type: "varchar",
                 },
-                {
-                    name: "password",
-                    type: "varchar",
-                },
             ]
         }), true)
     }

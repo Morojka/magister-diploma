@@ -3,7 +3,7 @@ import {User} from "./entity/User";
 import {createConnection} from "typeorm"
 
 var passport = require('passport')
-var VKontakteStrategy = require('passport-vkontakte').Strategy;
+var VKontakteStrategy = require('passport-vkontakte').Strategy
 
 createConnection().then(async connection => {
     passport.use(new VKontakteStrategy({
@@ -24,6 +24,7 @@ createConnection().then(async connection => {
                 });
                 if (!user) {
                     // If the user isn't found in the database, return a message
+                    console.log('User not found');
                     return done(null, false, {message: 'User not found'});
                 }
                 console.log('user');
