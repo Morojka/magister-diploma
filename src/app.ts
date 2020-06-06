@@ -2,12 +2,14 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-var express = require('express');
-var app = express();
+const express = require('express');
+const bodyParser = require('body-parser')
+const app = express();
 import passport from './auth';
 import bot from './soc-net';
 
 app.use(express.static('public'));
+app.use(bodyParser.json())
 app.use(require('express-session')({
     secret: 'keyboard cat',
     resave: false,
