@@ -6,21 +6,17 @@ var express = require('express');
 var app = express();
 import passport from './auth';
 
-
 app.use(express.static('public'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.set('view engine', 'pug');
-
 
 // ______ROUTES________
 app.get('/', function (req, res) {
     res.render('index', {title: 'Hey', message: 'Hello there!'});
 });
 app.post('/confirmVK', function (req, res) {
-    if (req.query === {"type": "confirmation", "group_id": 166439257}) {
-        res.send('923385b5');
-    }
+    res.send('923385b5');
 });
 
 app.get('/auth/vkontakte',
