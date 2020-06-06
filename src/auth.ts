@@ -1,6 +1,6 @@
 import "reflect-metadata";
-import {createConnection, getRepository} from "typeorm";
-import {User} from "./entity/User";
+import {User} from "./User";
+import {createConnection} from "typeorm"
 
 var passport = require('passport')
 var VKontakteStrategy = require('passport-vkontakte').Strategy;
@@ -36,16 +36,14 @@ createConnection().then(async connection => {
             }
         }
     ));
+
+    passport.serializeUser(function (user, done) {
+        done(null, user);
+    });
+
+    passport.deserializeUser(function (user, done) {
+        done(null, user);
+    });
 }).catch(error => console.log(error));
-
-
-
-passport.serializeUser(function (user, done) {
-    done(null, user);
-});
-
-passport.deserializeUser(function (user, done) {
-    done(null, user);
-});
 
 export default passport;

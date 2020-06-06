@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm"
-import {User} from "./entity/User"
+import {User} from "./User"
 
 createConnection().then(async connection => {
     console.log('DB Started');
