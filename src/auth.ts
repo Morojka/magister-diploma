@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import {User} from "./User";
+import {User} from "./entity/User";
 import {createConnection} from "typeorm"
 
 var passport = require('passport')
