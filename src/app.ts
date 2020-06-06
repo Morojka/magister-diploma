@@ -16,7 +16,7 @@ app.get('/', function (req, res) {
     res.render('index', {title: 'Hey', message: 'Hello there!'});
 });
 app.post('/confirmVK', function (req, res) {
-    res.send('923385b5');
+    res.send('b838b0af');
 });
 
 app.get('/auth/vkontakte',
