@@ -5,7 +5,7 @@ var VKontakteStrategy = require('passport-vkontakte').Strategy;
 
 passport.use(new VKontakteStrategy({
         clientID: process.env.VK_APP_ID,
-        clientSecret: process.env.VK_APP_SECRET,
+        clientSecret: process.env.VK_APP_SECURE_KEY,
         callbackURL: process.env.VK_APP_CALLBACK_URL
     },
     // eslint-disable-next-line func-names
