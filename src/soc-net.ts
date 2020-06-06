@@ -2,7 +2,10 @@ const VkBot = require('node-vk-bot-api')
 import {createConnection} from "typeorm";
 import {User} from "./entity/User";
 
-const bot = new VkBot(process.env.VK_COMM_TOKEN)
+const bot = new VkBot({
+    token: process.env.VK_COMM_TOKEN,
+    confirmation: process.env.VK_COMM_CONFIRMATION,
+})
 
 const Session = require('node-vk-bot-api/lib/session')
 const Stage = require('node-vk-bot-api/lib/stage')

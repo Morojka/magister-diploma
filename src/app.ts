@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 var express = require('express');
 var app = express();
 import passport from './auth';
+import bot from './soc-net';
 
 app.use(express.static('public'));
 app.use(require('express-session')({
@@ -25,9 +26,7 @@ app.get('/', function (req, res) {
         res.render('index');
     }
 });
-app.post('/confirmVK', function (req, res) {
-    res.send('b838b0af');
-});
+app.post('/vk-hook', bot.webhookCallback);
 
 app.get('/auth/vkontakte',
     passport.authenticate('vkontakte'),
@@ -46,5 +45,7 @@ app.get('/logout', function (req, res) {
     res.redirect('/');
 });
 // ______ROUTES________
+
+bot.startPolling();
 
 export default app;
