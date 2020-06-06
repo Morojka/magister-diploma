@@ -37,6 +37,9 @@ createConnection().then(async connection => {
             }
         },
         (ctx) => {
+            console.log(ctx);
+            console.log(ctx.message);
+            console.log(/([0-9])\d{5}/.test(ctx.message.text));
             if(/([0-9])\d{5}/.test(ctx.message.text)) {
                 let user = new User();
                 user.record_number = ctx.message.text;
@@ -45,8 +48,9 @@ createConnection().then(async connection => {
 
                 ctx.reply('Вы успешно зарегистрированы! Кабинет тут: https://volsu-helper.herokuapp.com/');
                 ctx.scene.leave()
+            } else {
+                ctx.reply('Не нахожу такой зачетки, попробуйте еще.');
             }
-            ctx.reply('Не нахожу такой зачетки, попробуйте еще.');
         }
     );
 
@@ -59,7 +63,11 @@ createConnection().then(async connection => {
     })
 
     bot.on((ctx) => {
-        ctx.reply('Hello!');
+        if(ctx.session.registered) {
+            // AI
+        } else {
+            ctx.reply('Здравствуйте! Введите /start для начала работы');
+        }
         console.log(ctx.message.text);
     });
 });
