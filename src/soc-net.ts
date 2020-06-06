@@ -13,6 +13,8 @@ const session = new Session()
 bot.use(session.middleware())
 
 createConnection().then(async connection => {
+    console.log('vk db connected');
+
     const scene = new Scene('start',
         async (ctx) => {
             const user = await connection.manager.findOne(User, {
@@ -50,7 +52,13 @@ createConnection().then(async connection => {
 
     bot.command('/start', (ctx) => {
         ctx.scene.enter('start');
+        console.log('start');
     })
+
+    bot.on((ctx) => {
+        ctx.reply('Hello!');
+        console.log(ctx.message.text);
+    });
 });
 
 export default bot;
