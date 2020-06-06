@@ -6,10 +6,13 @@ var VKontakteStrategy = require('passport-vkontakte').Strategy;
 passport.use(new VKontakteStrategy({
         clientID: process.env.VK_APP_ID,
         clientSecret: process.env.VK_APP_SECURE_KEY,
-        callbackURL: process.env.VK_APP_CALLBACK_URL
+        callbackURL: process.env.VK_APP_CALLBACK_URL,
+        apiVersion: '5.68',
     },
     // eslint-disable-next-line func-names
     async (_accessToken, _refreshToken, profile, done) => {
+        console.log('profile');
+        console.log(profile);
         try {
             const user = await User.findOne({
                 where: {
@@ -20,6 +23,8 @@ passport.use(new VKontakteStrategy({
                 // If the user isn't found in the database, return a message
                 return done(null, false, {message: 'User not found'});
             }
+            console.log('user');
+            console.log(user);
 
             // Send the user information to the next middleware
             return done(null, user, {message: 'Logged in Successfully'});
