@@ -3,5 +3,10 @@ extends layout.pug
 block content
     div.container
         div.row
-            div.col-auto.mt-4.mx-auto
-                h1= user.id
+            div.col-auto.my-4.mx-auto
+                h1
+                    | Зачетка - #
+                    = user.record_number
+            div.col-12.text-center
+                a.btn.btn-primary.mr-2(href="/schedule") Расписание
+                a.btn.btn-danger(href="/logout") Выйти

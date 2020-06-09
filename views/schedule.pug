@@ -1,0 +1,67 @@
+extends layout.pug
+
+block content
+    div.container-fluid.mt-3
+        form(method='post', action='/schedule/save')
+            div.row
+                div.col-12
+                    h1 Расписание
+                div.col-12.mb-5.mt-3
+                    div.d-flex.justify-content-between
+                        a.btn(href="/schedule/mon", class=day === 'mon' ? 'btn-primary': 'btn-outline-primary') Понедельник
+                        a.btn(href="/schedule/tue", class=day === 'tue' ? 'btn-primary': 'btn-outline-primary') Вторник
+                        a.btn(href="/schedule/wed", class=day === 'wed' ? 'btn-primary': 'btn-outline-primary') Среда
+                        a.btn(href="/schedule/thu", class=day === 'thu' ? 'btn-primary': 'btn-outline-primary') Четверг
+                        a.btn(href="/schedule/fri", class=day === 'fri' ? 'btn-primary': 'btn-outline-primary') Пятница
+                        a.btn(href="/schedule/sat", class=day === 'sat' ? 'btn-primary': 'btn-outline-primary') Суббота
+                div.col-lg-6.col-12
+                    - let scheduleDayNum = scheduleDays.filter(obj => {return obj.numerator === true })[0];
+                    div.row
+                        div.col-12.text-center
+                            b Числитель
+                        div.col-12
+                            table.table.table-bordered
+                                thead
+                                    tr
+                                        th #
+                                        th time
+                                        th name
+                                        th aud
+                                tbody
+                                    each time, index in ['8:30', '10:10', '12:00', '13:40', '15:20', '18:00']
+                                        - let lesson = scheduleDayNum ? scheduleDayNum.lessons.filter(obj => {return obj.time === time })[0]: null;
+                                        tr
+                                            th= index + 1
+                                            th= time
+                                            th
+                                                input.form-control.w-100(name=day + "[numerator]["+ time +"][name]", value=lesson ? lesson.name: '')
+                                            th
+                                                input.form-control.w-100(name=day + "[numerator]["+ time +"][place]", value=lesson ? lesson.place: '')
+
+                div.col-lg-6.col-12
+                    - let scheduleDayDenum = scheduleDays.filter(obj => {return obj.numerator === false })[0];
+                    div.row
+                        div.col-12.text-center
+                            b Знаменатель (Опционально)
+                        div.col-12
+                            table.table.table-bordered
+                                thead
+                                    tr
+                                        th #
+                                        th time
+                                        th name
+                                        th aud
+                                tbody
+                                    tr
+                                        each time, index in ['8:30', '10:10', '12:00', '13:40', '15:20', '18:00']
+                                            - let lesson = scheduleDayDenum ? scheduleDayDenum.lessons.filter(obj => {return obj.time === time })[0]: null;
+                                            tr
+                                                th= index + 1
+                                                th= time
+                                                th
+                                                    input.form-control.w-100(name=day + "[denumerator]["+ time +"][name]", value=lesson ? lesson.name: '')
+                                                th
+                                                    input.form-control.w-100(name=day + "[denumerator]["+ time +"][place]", value=lesson ? lesson.place: '')
+
+                div.col-12.my-4
+                    button.btn.btn-success Сохранить

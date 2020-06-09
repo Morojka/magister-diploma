@@ -1,9 +1,10 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
+import {ScheduleDay} from "./ScheduleDay";
 
 @Entity()
-export class User extends BaseEntity {
+export class User {
 
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('increment')
     id: number;
 
     @Column()
@@ -11,5 +12,8 @@ export class User extends BaseEntity {
 
     @Column()
     vk_id: string;
+
+    @OneToMany(type => ScheduleDay, scheduleDay => scheduleDay.user)
+    scheduleDays: ScheduleDay[]
 
 }
