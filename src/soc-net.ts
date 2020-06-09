@@ -36,16 +36,16 @@ createConnection().then(async connection => {
                 ctx.scene.next();
             }
         },
-        (ctx) => {
-            console.log(ctx.message);
+        async (ctx) => {
             if(/([0-9])\d{5}/.test(ctx.message.body)) {
                 let user = new User();
                 user.record_number = ctx.message.body;
                 user.vk_id = ctx.message.user_id;
-                user.save();
 
-                ctx.reply('Вы успешно зарегистрированы! Кабинет тут: https://volsu-helper.herokuapp.com/');
-                ctx.scene.leave()
+                await connection.manager.save(user).then(() => {
+                    ctx.reply('Вы успешно зарегистрированы! Кабинет тут: https://volsu-helper.herokuapp.com/');
+                    ctx.scene.leave()
+                });
             } else {
                 ctx.reply('Не нахожу такой зачетки, попробуйте еще.');
             }

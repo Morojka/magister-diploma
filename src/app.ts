@@ -28,7 +28,6 @@ app.use(passport.session());
 app.set('view engine', 'pug');
 
 // ______ROUTES________
-
 app.get('/', async function (req, res) {
     if (process.env.NODE_ENV !== 'production') {
         const user = await getRepository(User).findOne(1);
@@ -43,6 +42,7 @@ app.get('/', async function (req, res) {
 });
 app.get('/schedule/', async function (req, res) {
     if (process.env.NODE_ENV !== 'production') {
+        const user = await getRepository(User).findOne(1);
         res.redirect('/schedule/mon');
     } else {
         if (req.isAuthenticated()) {
@@ -53,8 +53,9 @@ app.get('/schedule/', async function (req, res) {
     }
 });
 app.get('/schedule/:day', async function (req, res) {
-    const user = req.user;
-    // const user = await getRepository(User).findOne(1);
+    // const user = req.user;
+    const user = await getRepository(User).findOne(1);
+    req.user = user
 
     const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
@@ -70,8 +71,8 @@ app.get('/schedule/:day', async function (req, res) {
     }
 });
 app.post('/schedule/save', async function (req, res) {
-    const user = req.user;
-    // const user = await getRepository(User).findOne(1);
+    // const user = req.user;
+    const user = await getRepository(User).findOne(1);
 
     const lessonObj = await getRepository(Lesson);
     const scheduleDayObj = await getRepository(ScheduleDay);
