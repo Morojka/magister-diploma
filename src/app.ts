@@ -14,7 +14,7 @@ import passport from './auth';
 import bot from './soc-net';
 
 app.use(express.static('public'));
-// app.use(bodyParser.json())
+app.use(express.json())
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -36,7 +36,7 @@ app.get('/', async function (req, res) {
         if (req.isAuthenticated()) {
             res.render('profile', {user: req.user});
         } else {
-            res.redirect('/');
+            res.render('index');
         }
     }
 });
