@@ -6,3 +6,5 @@ dist/
 tmp/
 temp/
 /ngrok.exe
+/texts/
+/models/
