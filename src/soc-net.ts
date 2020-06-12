@@ -1,3 +1,5 @@
+import net from "./ai";
+
 const VkBot = require('node-vk-bot-api')
 import {createConnection} from "typeorm";
 import {User} from "./entity/User";
@@ -62,7 +64,14 @@ createConnection().then(async connection => {
 
     bot.on((ctx) => {
         if(ctx.session.registered) {
-            // AI
+            var output = net.run(ctx.message.body);
+            console.log('output');
+            console.log(output);
+            ctx.reply(output).catch((err) => {
+                console.log('err');
+                console.log(err);
+                ctx.reply('Ошибка');
+            });
         } else {
             ctx.reply('Здравствуйте! Введите /start для начала работы');
         }
