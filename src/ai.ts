@@ -1,6 +1,7 @@
 var brain = require('brain.js')
 const fs = require('fs');
 const net = new brain.recurrent.LSTM();
+const modelPath = process.cwd() + '/models/model.json'
 
 let data = [
     {input: 'Дай мне расписание', output: 'расписание'},
@@ -16,8 +17,8 @@ let data = [
     {input: 'баллы', output: 'баллы'},
 ];
 
-if (fs.existsSync(process.cwd() + '/models/model.json')) {
-    const model = fs.readFileSync(process.cwd() + '/models/model.json')
+if (fs.existsSync(modelPath)) {
+    const model = fs.readFileSync(modelPath)
     net.fromJSON(JSON.parse(model))
 } else {
     net.train(data, {
@@ -25,7 +26,7 @@ if (fs.existsSync(process.cwd() + '/models/model.json')) {
     });
 
     const model = net.toJSON()
-    fs.writeFileSync(process.cwd() + '/models/model.json', JSON.stringify(model))
+    fs.writeFileSync(modelPath, JSON.stringify(model))
 }
 
 export default net;
