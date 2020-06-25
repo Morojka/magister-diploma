@@ -54,11 +54,13 @@ app.get('/schedule/', async function (req, res) {
     }
 });
 app.get('/schedule/:day', async function (req, res) {
-    // const user = req.user;
     const user = await getRepository(User).findOne(req.user.id, {relations: ["record"]});
+    if(!user) {
+        res.redirect('/');
+    }
     req.user = user
 
-    const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
     if (req.isAuthenticated()) {
         if (!days.includes(req.params.day)) {
@@ -72,8 +74,8 @@ app.get('/schedule/:day', async function (req, res) {
     }
 });
 app.post('/schedule/save', async function (req, res) {
-    // const user = req.user;
-    const user = await getRepository(User).findOne(1);
+    const user = req.user;
+    // const user = await getRepository(User).findOne(1);
 
     const lessonObj = await getRepository(Lesson);
     const scheduleDayObj = await getRepository(ScheduleDay);

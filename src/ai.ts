@@ -13,16 +13,22 @@ var mimir = require('./bow'),
 const modelPath = process.cwd() + '/models/model.json'
 
 const texts = [
-        'Дай мне на расписание выдай распис расп покажи распорядок моё мое сегодня пары',
-        'баллы баллов балл б оценку оценки оценок рейтинг',
-    ]
+    'Дай мне на расписание расписания выдай распис расп р покажи распорядок моё мое сегодня пара пару пары',
+    'баллы баллов балл б оценку оценки оценок рейтинг',
+]
 
 const voc = dict(texts);
 
 let data = [
     {input: bow('расписание', voc), output: [0, 1]},
+    {input: bow('расписания', voc), output: [0, 1]},
+    {input: bow('расп', voc), output: [0, 1]},
+    {input: bow('распис', voc), output: [0, 1]},
+    {input: bow('р', voc), output: [0, 1]},
     {input: bow('распорядок', voc), output: [0, 1]},
     {input: bow('пары', voc), output: [0, 1]},
+    {input: bow('пара', voc), output: [0, 1]},
+    {input: bow('пару', voc), output: [0, 1]},
 
     {input: bow('дай расписание', voc), output: [0, 1]},
     {input: bow('дай распорядок', voc), output: [0, 1]},
@@ -113,8 +119,7 @@ let data = [
 ];
 
 
-const netOptions = {
-};
+const netOptions = {};
 
 const trainingOptions = {
     iterations: 60,

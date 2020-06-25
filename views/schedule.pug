@@ -14,6 +14,7 @@ block content
                         a.btn(href="/schedule/thu", class=day === 'thu' ? 'btn-primary': 'btn-outline-primary') Четверг
                         a.btn(href="/schedule/fri", class=day === 'fri' ? 'btn-primary': 'btn-outline-primary') Пятница
                         a.btn(href="/schedule/sat", class=day === 'sat' ? 'btn-primary': 'btn-outline-primary') Суббота
+                        a.btn(href="/schedule/sun", class=day === 'sun' ? 'btn-primary': 'btn-outline-primary') Воскресенье
                 div.col-lg-6.col-12
                     - let scheduleDayNum = scheduleDays.filter(obj => {return obj.numerator === true })[0];
                     div.row
