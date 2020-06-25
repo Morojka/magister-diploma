@@ -34,7 +34,8 @@ app.get('/', async function (req, res) {
         res.render('profile', {user: user});
     } else {
         if (req.isAuthenticated()) {
-            res.render('profile', {user: req.user});
+            const user = await getRepository(User).findOne(req.user.id, {relations: ["record"]});
+            res.render('profile', {user: user});
         } else {
             res.render('index');
         }
@@ -54,7 +55,7 @@ app.get('/schedule/', async function (req, res) {
 });
 app.get('/schedule/:day', async function (req, res) {
     // const user = req.user;
-    const user = await getRepository(User).findOne(1);
+    const user = await getRepository(User).findOne(req.user.id, {relations: ["record"]});
     req.user = user
 
     const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
