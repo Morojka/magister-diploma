@@ -12,8 +12,8 @@ export class createUserTable1591376547202 implements MigrationInterface {
                     isPrimary: true
                 },
                 {
-                    name: "record_number",
-                    type: "varchar",
+                    name: "recordId",
+                    type: "int",
                 },
                 {
                     name: "vk_id",

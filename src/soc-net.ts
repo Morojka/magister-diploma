@@ -3,6 +3,7 @@ import net from "./ai";
 const VkBot = require('node-vk-bot-api')
 import {createConnection} from "typeorm";
 import {User} from "./entity/User";
+import {Record} from "./entity/Record";
 
 const bot = new VkBot({
     token: process.env.VK_COMM_TOKEN,
@@ -18,8 +19,6 @@ const session = new Session()
 bot.use(session.middleware())
 
 createConnection().then(async connection => {
-    console.log('vk db connected');
-
     const scene = new Scene('start',
         async (ctx) => {
             const user = await connection.manager.findOne(User, {
@@ -31,7 +30,7 @@ createConnection().then(async connection => {
             ctx.session.registered = !!user;
 
             if (ctx.session.registered) {
-                ctx.reply('Здравствуйте! Ваша учетная запись уже привязана к зачетке:' + user.record_number)
+                ctx.reply('Здравствуйте! Ваша учетная запись уже привязана к зачетке:' + user.record.value)
                 ctx.scene.leave();
             } else {
                 ctx.reply('Здравствуйте! Введите номер зачетки')
@@ -40,16 +39,22 @@ createConnection().then(async connection => {
         },
         async (ctx) => {
             if(/([0-9])\d{5}/.test(ctx.message.body)) {
-                let user = new User();
-                user.record_number = ctx.message.body;
-                user.vk_id = ctx.message.user_id;
+                const record = await connection.manager.findOne(Record, {where: {value: ctx.message.body}})
+                if (record) {
+                    console.log(record);
+                    let user = new User();
+                    user.record = record;
+                    user.vk_id = ctx.message.user_id;
 
-                await connection.manager.save(user).then(() => {
-                    ctx.reply('Вы успешно зарегистрированы! Кабинет тут: https://volsu-helper.herokuapp.com/');
-                    ctx.scene.leave()
-                });
+                    await connection.manager.save(user).then(() => {
+                        ctx.reply('Вы успешно зарегистрированы! Кабинет тут: https://volsu-helper.herokuapp.com/');
+                        ctx.scene.leave()
+                    });
+                } else {
+                    ctx.reply('Не нахожу такой зачетки, попробуйте еще.');
+                }
             } else {
-                ctx.reply('Не нахожу такой зачетки, попробуйте еще.');
+                ctx.reply('Номер зачетки состоит из шести цифр. Пример: 123456. Попробуйте еще!');
             }
         }
     );

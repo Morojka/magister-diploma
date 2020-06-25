@@ -2,8 +2,10 @@ extends layout.pug
 
 block content
     div.container
-        div.row
-            div.col-12.m-auto
-                h1 Здравствуйте! Для входа в кабинет авторизуйтесь через соц. сеть Вконтакте
+        div.row.mt-5
+            div.col-12.m-auto.text-center
+                h1 Здравствуйте!
+            div.col-12.m-auto.text-center
+                h2 Для входа в личный кабинет авторизуйтесь через соц. сеть Вконтакте
             div.col-auto.mt-4.mx-auto
                 a.btn.sign-in-vk-btn.btn-outline-primary(href='/auth/vkontakte') Войти через vk.com

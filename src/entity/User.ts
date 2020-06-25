@@ -1,5 +1,6 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, ManyToMany, ManyToOne} from "typeorm";
 import {ScheduleDay} from "./ScheduleDay";
+import {Record} from "./Record";
 
 @Entity()
 export class User {
@@ -7,8 +8,8 @@ export class User {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column()
-    record_number: string;
+    @ManyToOne(type => Record, record => record.users)
+    record: Record;
 
     @Column()
     vk_id: string;

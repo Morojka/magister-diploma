@@ -24,9 +24,9 @@ block content
                                 thead
                                     tr
                                         th #
-                                        th time
-                                        th name
-                                        th aud
+                                        th Время
+                                        th Название
+                                        th Аудитория
                                 tbody
                                     each time, index in ['8:30', '10:10', '12:00', '13:40', '15:20', '18:00']
                                         - let lesson = scheduleDayNum ? scheduleDayNum.lessons.filter(obj => {return obj.time === time })[0]: null;
@@ -48,9 +48,9 @@ block content
                                 thead
                                     tr
                                         th #
-                                        th time
-                                        th name
-                                        th aud
+                                        th Время
+                                        th Название
+                                        th Аудитория
                                 tbody
                                     tr
                                         each time, index in ['8:30', '10:10', '12:00', '13:40', '15:20', '18:00']
