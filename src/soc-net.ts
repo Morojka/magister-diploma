@@ -50,7 +50,7 @@ createConnection().then(async connection => {
 
             ctx.session.registered = !!user;
 
-            if (user.record && ctx.session.registered) {
+            if (user && user.record && ctx.session.registered) {
                 ctx.reply('Здравствуйте! Ваша учетная запись уже привязана к зачетке:' + user.record.value)
                 ctx.scene.leave();
             } else {
