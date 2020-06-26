@@ -45,11 +45,12 @@ createConnection().then(async connection => {
                 where: {
                     vk_id: ctx.message.user_id,
                 },
+                relations: ['record']
             });
 
             ctx.session.registered = !!user;
 
-            if (ctx.session.registered) {
+            if (user.record && ctx.session.registered) {
                 ctx.reply('Здравствуйте! Ваша учетная запись уже привязана к зачетке:' + user.record.value)
                 ctx.scene.leave();
             } else {
