@@ -101,40 +101,51 @@ createConnection().then(async connection => {
             let replyMessage = 'Произошло что-то непридвиденное, повторите попытку позднее';
 
             if (dictionary[answer] === SCHEDULE_COMMAND) {
+                replyMessage = '';
                 const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
                 const now = days[new Date().getDay()];
 
-                let scheduleDayNumerator = user.scheduleDays.find(scheduleDay => scheduleDay.day === now && scheduleDay.numerator)
-                let scheduleDayDenumerator = user.scheduleDays.find(scheduleDay => scheduleDay.day === now && !scheduleDay.numerator)
+                if(user.scheduleDays && user.scheduleDays.length > 0) {
+                    let scheduleDayNumerator = user.scheduleDays.find(scheduleDay => scheduleDay.day === now && scheduleDay.numerator)
+                    let scheduleDayDenumerator = user.scheduleDays.find(scheduleDay => scheduleDay.day === now && !scheduleDay.numerator)
 
-                let numeratorLessons = scheduleDayNumerator.lessons.sort((a, b) => (a.number > b.number) ? 1 : -1)
-                let denumeratorLessons = scheduleDayDenumerator.lessons.sort((a, b) => (a.number > b.number) ? 1 : -1)
+                    let numeratorLessons = scheduleDayNumerator.lessons.sort((a, b) => (a.number > b.number) ? 1 : -1)
+                    let denumeratorLessons = scheduleDayDenumerator.lessons.sort((a, b) => (a.number > b.number) ? 1 : -1)
 
-                replyMessage = 'Числитель:\n'
+                    replyMessage += 'Числитель:\n'
 
-                numeratorLessons.map((lesson) => {
-                    if (lesson.name && lesson.place) {
-                        replyMessage += `${lesson.number}\t|\t${lesson.time}\t|\t${lesson.name}\t|\t${lesson.place}\n`
-                    } else {
-                        replyMessage += `${lesson.number}\t|\t${lesson.time}\t|\tокно\n`
-                    }
-                })
+                    numeratorLessons.map((lesson) => {
+                        if (lesson.name && lesson.place) {
+                            replyMessage += `${lesson.number}\t|\t${lesson.time}\t|\t${lesson.name}\t|\t${lesson.place}\n`
+                        } else {
+                            replyMessage += `${lesson.number}\t|\t${lesson.time}\t|\tокно\n`
+                        }
+                    })
 
-                replyMessage += '\nЗнаменатель:\n'
+                    replyMessage += '\nЗнаменатель:\n'
 
-                denumeratorLessons.map((lesson) => {
-                    if (lesson.name && lesson.place) {
-                        replyMessage += `${lesson.number}\t|\t${lesson.time}\t|\t${lesson.name}\t|\t${lesson.place}\n`
-                    } else {
-                        replyMessage += `${lesson.number}\t|\t${lesson.time}\t|\tокно\n`
-                    }
-                })
+                    denumeratorLessons.map((lesson) => {
+                        if (lesson.name && lesson.place) {
+                            replyMessage += `${lesson.number}\t|\t${lesson.time}\t|\t${lesson.name}\t|\t${lesson.place}\n`
+                        } else {
+                            replyMessage += `${lesson.number}\t|\t${lesson.time}\t|\tокно\n`
+                        }
+                    })
 
-                ctx.reply(replyMessage).catch((err) => {
-                    console.log('err');
-                    console.log(err);
-                    ctx.reply('Ошибка');
-                });
+                    ctx.reply(replyMessage).catch((err) => {
+                        console.log('err');
+                        console.log(err);
+                        ctx.reply('Ошибка');
+                    });
+                } else {
+                    ctx.reply('Расписание для Вас отсутствует. Посетите сайт https://volsu-helper.herokuapp.com для его составления').catch((err) => {
+                        console.log('err');
+                        console.log(err);
+                        ctx.reply('Ошибка');
+                    });
+                }
+
+
             } else if (dictionary[answer] === MARKS_COMMAND) {
                 axios.get(`https://volsu.ru/rating/test.php`, {
                     params: {
